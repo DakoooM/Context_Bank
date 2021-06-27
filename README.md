@@ -8,7 +8,7 @@
 
 - [AigleIsBack](https://github.com/AigleIsBack)
 
-- [Noky](https://github.com/nokyaya)
+[- Noky](https://github.com/nokyaya)
 
 - [Yatox](https://github.com/Yatox18)
 
