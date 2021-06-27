@@ -1,12 +1,8 @@
 ## Features
 - Historique des Transactions
-- Depôt / Retrait
+- Depôt/Retrait
 - Simple Utilisation
-
-#### Description
-● Script permettant de déposer et retirer de l'argent en banque, sur FiveM.
-● ContextUI
-
+- Made with ContextUI
 
 - [Shazuub](https://github.com/Shazuub)
 
@@ -16,6 +12,5 @@
 
 - [Yatox](https://github.com/Yatox18)
 
-
-## ContextUI
+### ContextUI
 - [Source ContextUI](https://github.com/Kalyptus/ContextUI)
