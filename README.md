@@ -12,7 +12,7 @@
 
  [● Noky](https://github.com/nokyaya)
 
- [● Yatox](https://github.com/Yatox18)
+ ●[● Yatox](https://github.com/Yatox18)
 
 ### ContextUI
  [● Source ContextUI](https://github.com/Kalyptus/ContextUI)
