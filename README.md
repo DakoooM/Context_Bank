@@ -4,6 +4,8 @@
 - Simple Utilisation
 - Made with ContextUI
 
+## Contributors
+
 [● Shazuub](https://github.com/Shazuub)
 
 [● AigleIsBack](https://github.com/AigleIsBack)
