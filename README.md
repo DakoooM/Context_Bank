@@ -6,4 +6,4 @@
 
 - [Noky](https://github.com/nokyaya)
 
-- [Yatox](https://github.com/Yatox19)
+- [Yatox](https://github.com/Yatox18)
