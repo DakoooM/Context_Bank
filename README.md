@@ -1,6 +1,6 @@
 ## Features
 - Historique des Transactions
-- Depôt/Retrait
+- Depôt / Retrait
 - Simple Utilisation
 
 #### Description
