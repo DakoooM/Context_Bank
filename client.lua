@@ -1,4 +1,4 @@
---- Contributor : Dako, Shazuub le BG, Latex, AigleIsRetour, Noky, Sex
+--- Contributor : DakoM, Shazuub, Yatox, AigleIsBack, Noky
 
 local ESX = nil
 local HistoriqueTransactions = {}
