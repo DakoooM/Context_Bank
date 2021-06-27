@@ -1,4 +1,4 @@
---- Contributor : Dako, Shazuub le BG, Latex, AigleIsRetour, Nokia, Sex
+--- Contributor : Dako, Shazuub le BG, Latex, AigleIsRetour, Noky, Sex
 
 local ESX = nil
 local HistoriqueTransactions = {}
