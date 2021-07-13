@@ -1,9 +1,16 @@
-ESX  = nil
 ESX = exports.es_extended:getSharedObject()
 
-ESX.RegisterServerCallback("ContextBank:getMoney", function(source, Callback)
+ESX.RegisterServerCallback("ContextBank:getMoney", function(source, Callback, type)
     local player = ESX.GetPlayerFromId(source)
-    Callback(player.getAccount('bank').money)
+    if player then
+        if type == "bank" then
+            Callback(player.getAccount('bank').money)
+        elseif type == "money" then
+            Callback(player.getMoney())
+        else
+            Callback(nil)
+        end
+    end
 end)
 
 RegisterServerEvent("ContextBank:ActionsMoney")
