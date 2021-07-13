@@ -5,7 +5,7 @@
 - Crée depuis **ContextUI**
 
 ## Description
-
+*This resource designed for fivem was created for fun and not for the purpose of providing the best possible resource*
 
 ## Preview
 https://streamable.com/lnu6hc
