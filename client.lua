@@ -1,5 +1,4 @@
 --- Contributor : DakoM, Shazuub, Yatox, AigleIsBack, Noky
-
 local ESX = nil
 local HistoriqueTransactions = {}
 
@@ -8,12 +7,13 @@ CreateThread(function()
         ESX = exports.es_extended:getSharedObject()
         Wait(1)
         while not ESX.IsPlayerLoaded() do  Wait(1) end 
+        print("Contributor: DakoM, Shazuub, Yatox, AigleIsBack, Noky")
     end
 end)
 
-local KeyboardInput = function(textEntry, inputText, maxLength)
-    AddTextEntry('FMMC_KEY_TIP1', textEntry)
-    DisplayOnscreenKeyboard(1, "FMMC_KEY_TIP1", "", inputText, "", "", "", maxLength)
+local KeyboardInput = function(display, text, InBoxText, maxCaracters)
+    AddTextEntry(display, text)
+    DisplayOnscreenKeyboard(1, display, "", InBoxText, "", "", "", maxCaracters)
     while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
         Wait(1.0)
     end
@@ -27,27 +27,29 @@ local KeyboardInput = function(textEntry, inputText, maxLength)
     end
 end
 
-local ContextATM = ContextUI:CreateMenu(3, "ATM") 
-local HistoriqueMenu = ContextUI:CreateSubMenu(ContextATM, "Transaction") 
+local ContextATM = ContextUI:CreateMenu(3, "Objets") 
+local HistoriqueMenu = ContextUI:CreateSubMenu(ContextATM, "Transactions") 
 
 ContextUI:IsVisible(ContextATM, function(Entity)
     if Entity.Model == -870868698 or Entity.Model == -1126237515 or Entity.Model == -1364697528 or Entity.Model == 506770882 then
-        ContextUI:Button("Solde ~g~$" ..tostring(PlayerMoney).. "~s~", nil, function() end)
-
+        ContextUI:Button("Solde", "1. Solde personnel ~g~$" ..tostring(PlayerMoney).. "~s~\n2. Solde bancaire ~b~$" ..tostring(PlayerBank).. "~s~", function() end)  
         ContextUI:Button("Déposer de l'argent", nil, function(Selected)
             if (Selected) then
-                getPlayerMoney()
-                local BoardMoney = KeyboardInput("Montant du dépot", "", 6)
-                if tonumber(PlayerMoney) >= tonumber(BoardMoney) then
-                    TriggerServerEvent("ContextBank:ActionsMoney", "depot", tonumber(BoardMoney))
+                local BoardDepot = KeyboardInput("DEPOT_BANKING", "Montant du dépot", "", 6)
+                local year ,month ,day ,hour ,minute ,second  = GetPosixTime() 
+                if month < 10 then
+                    month = "0"..month
+                end
+                if tonumber(PlayerMoney) >= tonumber(BoardDepot) then
+                    TriggerServerEvent("ContextBank:ActionsMoney", "depot", tonumber(BoardDepot))
                     table.insert(HistoriqueTransactions, {
-                        money = BoardMoney,
+                        money = BoardDepot,
                         type = "Dépôt",
-                        hours = GetClockHours(),
-                        minutes = GetClockMinutes(),
+                        time = day.."/"..month,
                     })
-                    getPlayerMoney()
-                    ESX.ShowNotification("Vous avez déposer "..tostring(BoardMoney).."~g~$")
+                    getPlayerMoney("money")
+                    getPlayerMoney("bank")
+                    ESX.ShowNotification("Vous avez déposé -"..tostring(BoardDepot).."~g~$")
                 else
                     ESX.ShowNotification("~r~Vous n'avez pas autant d'argent.")
                 end
@@ -56,18 +58,21 @@ ContextUI:IsVisible(ContextATM, function(Entity)
 
         ContextUI:Button("Retirer de l'argent", nil, function(Selected)
             if (Selected) then
-                getPlayerMoney()
-                local BoardMoney = KeyboardInput("Montant du retrait", "", 6)
-                if tonumber(PlayerMoney) >= tonumber(BoardMoney) then
-                    TriggerServerEvent("ContextBank:ActionsMoney", "retrait", tonumber(BoardMoney))
+                local BoardRetrait = KeyboardInput("RETRAIT_BANKING", "Montant du retrait", "", 6)
+                local year ,month ,day  = GetPosixTime() 
+                if month < 10 then
+                    month = "0"..month
+                end
+                if tonumber(PlayerBank) >= tonumber(BoardRetrait) then
+                    TriggerServerEvent("ContextBank:ActionsMoney", "retrait", tonumber(BoardRetrait))
                     table.insert(HistoriqueTransactions, {
-                        money = BoardMoney,
+                        money = BoardRetrait,
                         type = "Retrait",
-                        hours = GetClockHours(),
-                        minutes = GetClockMinutes(),
-                    })
-                    getPlayerMoney()
-                    ESX.ShowNotification("Vous avez retirer "..tostring(BoardMoney).."~g~$")
+                        time = day.."/"..month
+                    }) 
+                    getPlayerMoney("bank")
+                    getPlayerMoney("money")
+                    ESX.ShowNotification("Vous avez retiré +"..tostring(BoardRetrait).."~g~$")
                 else
                     ESX.ShowNotification("~r~Vous n'avez pas autant d'argent sur le compte.")
                 end
@@ -87,7 +92,7 @@ ContextUI:IsVisible(HistoriqueMenu, function(Entity)
             end
         end)
         for i=1, #HistoriqueTransactions, 1 do
-            ContextUI:Button(HistoriqueTransactions[i].type.." "..tostring(HistoriqueTransactions[i].money).."~g~$", "à "..HistoriqueTransactions[i].hours..":"..HistoriqueTransactions[i].minutes, function(Selected) 
+            ContextUI:Button(HistoriqueTransactions[i].type.." "..tostring(HistoriqueTransactions[i].money).."~g~$", "le "..HistoriqueTransactions[i].time, function(Selected) 
             end)
         end
     else
@@ -95,13 +100,18 @@ ContextUI:IsVisible(HistoriqueMenu, function(Entity)
     end    
 end)
 
-getPlayerMoney = function()
+getPlayerMoney = function(type)
     ESX.TriggerServerCallback("ContextBank:getMoney", function(money) 
-        PlayerMoney = money
-    end)
+        if type == "bank" then 
+            PlayerBank = money
+        elseif type == "money" then 
+            PlayerMoney = money
+        end
+    end, type)
 end
 
 Keys.Register("LMENU", "LMENU", "BankMenu", function()
-    getPlayerMoney()
+    getPlayerMoney("bank")
+    getPlayerMoney("money")
     ContextUI.Focus = not ContextUI.Focus;
 end)
