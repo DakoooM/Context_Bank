@@ -24,5 +24,5 @@ https://streamable.com/lnu6hc
 - [Source ContextUI](https://github.com/Kalyptus/ContextUI)
 
 <p align="center">
-<img width="60%" src="https://cdn.discordapp.com/attachments/858491091086475304/864659141679120394/context_bank.jpg">
+<img width="80%" src="https://cdn.discordapp.com/attachments/858491091086475304/864659141679120394/context_bank.jpg">
 </p>
