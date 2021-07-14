@@ -6,7 +6,7 @@
 
 ## Description
 **French:** *Cette ressource conçue pour fivem a été crée pour le plaisir et non dans le but de fournir la meilleure ressource possible.*
-__
+<br>
 **English:** *This resource designed for fivem was created for fun and not for the purpose of providing the best possible resource*
 
 ## Preview
