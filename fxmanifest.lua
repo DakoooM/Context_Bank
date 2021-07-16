@@ -4,7 +4,6 @@ game 'gta5'
 client_scripts {
   "src/components/*.lua",
   "src/ContextUI.lua",
-  "example.lua",
   'client.lua'
 }
 
